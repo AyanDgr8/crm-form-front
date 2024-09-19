@@ -1,0 +1,161 @@
+
+/* src/components/routes/Forms/ListForm/ListForm.css */
+
+.list-container {
+  overflow-y: auto;
+  height: 75vh;
+  background-color: #f4f4f4;
+  padding: 0.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 1000px;
+  margin: 1rem auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.list_form_headi {
+  color: #364C63;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  letter-spacing: 0.05rem;
+}
+
+.list_form_ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 1rem;
+  font-size: 1rem;
+}
+
+.list_form_li {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 0.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: left;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+  max-width: 350px;
+  font-size: 1rem;
+}
+
+.list_form_li:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.list_form_li.list_form_li.expanded{
+  max-width: 1000px;
+}
+
+
+.nameee {
+  color: #EF6F53;
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.list_form_p {
+  color: #364C63;
+  margin: 0.3rem 0;
+  font-size: 1rem;
+}
+
+.list_form_p.date-created {
+  font-size: 0.95rem;
+  color: #364C63;
+}
+
+.no-records {
+  text-align: center;
+  color: #364C63;
+  font-size: 1.2rem;
+  padding: 2rem;
+  background-color: #fdfdfd;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 100%;
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.toggle-icon {
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s ease;
+}
+
+.toggle-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Initially limit the .customer-info block to a max width of 250px */
+.customer-info {
+  text-align: left;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide any overflow */
+  text-overflow: ellipsis; /* Show ellipsis (...) for overflow */
+  transition: max-width 0.3s ease; 
+  color: #364C63;
+}
+
+/* When expanded, remove the width restriction */
+.list_form_li.expanded .customer-info {
+  color: #364C63;
+  white-space: normal;
+  overflow: visible;
+}
+
+.customer-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  text-align: left;
+  color: #364C63;
+}
+
+.customer-details p {
+  width: calc(100% / 3 - 1rem);
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.list_form_li.expanded .customer-details {
+  margin-top: 1rem;
+  border-radius: 4px;
+}
+
+/* Wrap to the next row after 12 details */
+.customer-details:nth-child(n+13) {
+  margin-top: 1rem;
+}
+
+/* Responsive layout adjustments for smaller screens */
+@media (max-width: 768px) {
+  .customer-details p {
+    width: calc(100% / 2 - 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .customer-details p {
+    width: 100%;
+  }
+}
