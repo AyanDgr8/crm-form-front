@@ -147,6 +147,22 @@
   margin-top: 1rem;
 }
 
+.edit-btnn{
+  margin: auto;
+  border: none;
+  border-radius: 10px;
+  background-color: #EF6F53;
+  color: white;
+  font-size: 0.9em;
+  padding:0.25rem;
+  width: 5vw;
+  line-height: 1rem;
+
+}
+.edit-btnn:hover{
+  background-color: #e83d16;
+
+}
 /* Responsive layout adjustments for smaller screens */
 @media (max-width: 768px) {
   .customer-details p {

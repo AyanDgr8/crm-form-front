@@ -1,0 +1,97 @@
+/* src/components/routes/Forms/UseForm/UseForm.css */
+
+
+.use-form-container {
+    overflow-y: auto;
+    height: 50vh;
+    background-color: #f4f4f4;
+    padding: 1rem;
+    margin: 1rem auto;
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.list_form_headiii {
+    color: #364C63;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: bold;
+    letter-spacing: 0.05rem;
+    margin-bottom: 1rem;
+}
+
+
+.use-form-container form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.label-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 48%; 
+    margin-bottom: 1rem;
+}
+
+.use-form-container label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #364C63;
+    margin-right: 0.5rem;
+    text-align: left;
+    width: 35%; 
+}
+
+.use-form-container input {
+    flex: 1;
+    padding: 0.15rem;
+    border: 1px solid #ccc;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: border-color 0.3s ease;
+    width: 100%;
+}
+
+.use-form-container input:focus {
+    border-color: #364C63;
+    outline: none;
+}
+
+.use-form-container button {
+    background-color: #EF6F53;
+    color: white;
+    padding: 0.15rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 20%;
+    position: absolute; /* Position the button absolutely */
+    bottom: 10px; /* Position it 10px from the bottom */
+    left: 50%; /* Align horizontally to center */
+    transform: translateX(-50%); /* Correct centering with transform */
+
+}
+
+.use-form-container button:hover {
+    background-color: #df3319;
+}
+
+
+
+@media (max-width: 768px) {
+    .use-form-container {
+        width: 90%;
+    }
+
+    .label-input {
+        width: 100%; /* Full width for smaller screens */
+    }
+}
+

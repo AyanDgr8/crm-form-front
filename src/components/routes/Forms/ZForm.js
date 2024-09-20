@@ -10,13 +10,13 @@ const ZForm = () => {
     return (
         <Routes>
             {/* Route to the ListForm component */}
-            <Route path="/" element={<ListForm />} />
+            <Route path="/customers" element={<ListForm />} />
             
             {/* Route to View Form */}
             <Route path="/customers/search/" element={<ViewForm />} />
 
             {/* Route to Use Form */}
-            <Route path="/customers/use/" element={<UseForm />} />
+            <Route path="/customers/use/:id" element={<UseForm />} />
         </Routes>
     );
 };

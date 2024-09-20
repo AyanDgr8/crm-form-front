@@ -19,6 +19,18 @@
     align-items: center;
 }
 
+.file-icon {
+    width: 20px;
+    height: 20px; 
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    margin-right: 2rem;
+}
+
+.file-icon:hover {
+    transform: scale(1.25);
+}
+
 .pro-icon {
     width: 20px;
     height: 20px; 
