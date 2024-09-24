@@ -3,87 +3,99 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import "./ViewForm.css";
+import "./ViewForm.css"; 
 
 const ViewForm = () => {
-    const [results, setResults] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const location = useLocation(); 
-    const navigate = useNavigate(); 
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const query = new URLSearchParams(location.search);
-                const searchType = query.get('type');
-                const searchQuery = query.get('query');
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const query = new URLSearchParams(location.search);
+        const searchType = query.get('type');
+        const searchQuery = query.get('query');
 
-                const params = new URLSearchParams();
-                if (searchType) params.append("type", searchType);
-                if (searchQuery) params.append("query", searchQuery);
+        const params = new URLSearchParams();
+        if (searchType) params.append("type", searchType);
+        if (searchQuery) params.append("query", searchQuery);
 
-                const queryString = params.toString();
-                const url = `http://localhost:5000/customers/search?${queryString}`;
+        const queryString = params.toString();
+        const url = `http://localhost:5000/customers/search?${queryString}`;
 
-                const response = await axios.get(url);
-                setResults(response.data);
-            } catch (error) {
-                setError('Error fetching search results.');
-                console.error('Error fetching search results:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [location.search]);
-
-    const handleEdit = (customer) => {
-        // Redirect to UseForm with customer data (excluding C_unique_id)
-        navigate('/customers/use/' + customer.id, { state: { customer } });
+        const response = await axios.get(url);
+        setResults(response.data);
+      } catch (error) {
+        setError('Error fetching search results.');
+        console.error('Error fetching search results:', error);
+      } finally {
+        setLoading(false);
+      }
     };
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p className="error">{error}</p>;
+    fetchData();
+  }, [location.search]);
 
-    return (
+  const handleEdit = (customer) => {
+    navigate('/customers/use/' + customer.id, { state: { customer } });
+  };
 
-        <div>
-            <h2 className="list_form_headii">Search Results</h2>
-            <div className="view-form-container">
-            {results.length > 0 ? (
-                <ul className="list_form_ull">
-                    {results.map((item) => (
-                        <li key={item.id}>
-                            <div className="customer-detailss">
-                                <p><strong className="nameee">{item.first_name} {item.last_name}</strong></p>
-                                <p><strong>ID: </strong> {item.C_unique_id}</p>
-                                <p><strong>Date Created:</strong> {new Date(item.date_created).toLocaleDateString()}</p>
-                                <p><strong>Email: </strong> {item.email_id}</p>
-                                <p><strong>Phone: </strong> {item.phone_no}</p>
-                                <p><strong>Company: </strong> {item.company_name}</p>
-                                <p><strong>Date of Birth: </strong> {item.date_of_birth}</p>
-                                <p><strong>Address: </strong> {item.address}</p>
-                                <p><strong>Contact Type: </strong> {item.contact_type}</p>
-                                <p><strong>Source:  </strong> {item.source}</p>
-                                <p><strong>Disposition: </strong> {item.disposition}</p>
-                                <p><strong>Agent Name: </strong> {item.agent_name}</p>
-                                {/* Edit Button for each customer */}
-                                <button onClick={() => handleEdit(item)} className="edit-btn">Edit</button>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            ) : (
-                <p>No results found.</p>
-            )}
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p className="error">{error}</p>;
 
-            </div>
-            
-        </div>
-    );
+  return (
+    <div>
+      <h2 className="list_form_headi">Search Results</h2>
+      <div className="list-container">
+        {results.length > 0 ? (
+          <table className="customers-table">
+            <thead>
+              <tr className="customer-row">
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>ID</th>
+                <th>Date Created</th>
+                <th>Date of Birth</th>
+                <th>Address</th>
+                <th>Contact Type</th>
+                <th>Source</th>
+                <th>Disposition</th>
+                <th>Agent Name</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody className="customer-body">
+              {results.map((customer) => (
+                <tr key={customer.id}>
+                  <td>{customer.first_name} {customer.last_name}</td>
+                  <td>{customer.email_id}</td>
+                  <td>{customer.phone_no}</td>
+                  <td>{customer.C_unique_id}</td>
+                  <td>{new Date(customer.date_created).toLocaleDateString()}</td>
+                  <td>{new Date(customer.date_of_birth).toLocaleDateString()}</td>
+                  <td>{customer.address}</td>
+                  <td>{customer.contact_type}</td>
+                  <td>{customer.source}</td>
+                  <td>{customer.disposition}</td>
+                  <td>{customer.agent_name}</td>
+                  <td>
+                    <button onClick={() => handleEdit(customer)} className="edit-btnn">Edit</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p>No results found.</p>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default ViewForm;

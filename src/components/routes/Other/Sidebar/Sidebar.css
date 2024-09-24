@@ -1,14 +1,11 @@
-/* src/components/routes/Sidebar/Sidebar.css */
+/* src/components/routes/Sidebar/Sidebar.css
 
 .sidebar-container{
     margin: auto;
     max-width: 95%;
 }
 
-/* .sidebar-content{
-    margin-top: 0.5rem;
 
-} */
 .input-gro {
     display: flex;
     align-items: center;
@@ -27,7 +24,9 @@
     font-size: 0.75em;
     max-width: 38%;
 }
-
+.form-sel:hover{
+    background-color: #ef411a;
+}
 .form-cont {
     flex: 2;
     border-radius: 5px; 
@@ -37,6 +36,10 @@
     font-size: 0.75em;
 }
 
+.form-cont:focus{
+    outline: none;
+
+}
 .srch-icon {
     width: 20px;
     height: 20px; 
@@ -47,3 +50,5 @@
 .srch-icon:hover {
     transform: scale(1.25);
 }
+
+ */

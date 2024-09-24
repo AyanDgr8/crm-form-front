@@ -6,38 +6,94 @@
     align-items: center;
     background-color: white;
     height: 12vh;
-    padding:2rem; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+    padding: 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
-    height: 50%; 
+    height: 50%;
 }
 
 .header-right {
     display: flex;
     align-items: center;
+    gap: 2rem; /* Add space between elements */
+}
+
+/* Search input styling */
+.header-search {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.form-control {
+    height: 2rem;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    width: 150px;
+    transition: box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.srch-icon {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.srch-icon:hover {
+    transform: scale(1.2);
+}
+
+/* File upload section */
+.file-upload-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
 }
 
 .file-icon {
-    width: 20px;
-    height: 20px; 
+    width: 24px;
+    height: 24px;
     cursor: pointer;
     transition: transform 0.3s ease;
-    margin-right: 2rem;
 }
 
 .file-icon:hover {
     transform: scale(1.25);
 }
 
+.file-name {
+    font-size: 0.85rem;
+    color: #333;
+}
+
+.file-upl {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Profile icon styling */
 .pro-icon {
-    width: 20px;
-    height: 20px; 
+    width: 30px;
+    height: 30px;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 50%;
 }
 
 .pro-icon:hover {
     transform: scale(1.25);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
