@@ -68,12 +68,12 @@ const ListForm = () => {
                 {currentCustomers.map((customer) => (
                   <tr key={customer.id}>
                     <td>{customer.C_unique_id}</td>
-                    <td>{customer.first_name} {customer.last_name}</td>
+                    <td className="customer-name">{customer.first_name} {customer.last_name}</td>
                     <td>{customer.email_id}</td>
                     <td>{customer.phone_no}</td>
                     <td>{new Date(customer.date_created).toLocaleDateString()}</td>
                     <td>{new Date(customer.date_of_birth).toLocaleDateString()}</td>
-                    <td>{customer.address}</td>
+                    <td className="customer-add">{customer.address}</td>
                     <td>{customer.contact_type}</td>
                     <td>{customer.source}</td>
                     <td>{customer.disposition}</td>

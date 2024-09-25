@@ -31,7 +31,7 @@ const LastChanges = ({ customerId }) => {
         {changes.length > 0 ? (
             changes.map((change, index) => (
             <p className="changes-content" key={index}>
-                <strong>Changes made on:</strong> {new Date(change.changed_at).toLocaleString()}, updated <strong>{change.field}</strong> from <em>{change.old_value}</em> to <em>{change.new_value}</em>.
+                <strong>Changes made on:</strong> {new Date(change.changed_at).toLocaleString()} || updated <strong>{change.field}</strong> from <em>{change.old_value}</em> to <em>{change.new_value}</em>.
             </p>
             ))
         ) : (

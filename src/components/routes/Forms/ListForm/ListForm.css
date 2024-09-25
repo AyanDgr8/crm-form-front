@@ -45,6 +45,14 @@
   font-size: 0.75rem;
 }
 
+.customer-name{
+  width: 10vw;
+}
+
+.customer-add{
+  width: 15vw;
+}
+
 .customers-table td {
   padding: 0.75rem;
   border-bottom: 1px solid #ddd;
@@ -135,7 +143,7 @@
 }
 
 .pagination button.active {
-  background-color: #FF8369;
+  background-color: #ff2a00;
   font-weight: bold;
 }
 
