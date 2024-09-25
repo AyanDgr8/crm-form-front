@@ -3,7 +3,7 @@
 
 .use-form-container {
     overflow-y: auto;
-    height: 50vh;
+    height: 45vh;
     background-color: #f4f4f4;
     padding: 1rem;
     margin: auto;
@@ -11,6 +11,7 @@
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
+    margin-bottom: 1rem;
 }
 
 .list_form_headiii {
@@ -19,7 +20,7 @@
     font-size: 1.25rem;
     font-weight: bold;
     letter-spacing: 0.05rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     margin-top: 1rem;
 
 }
@@ -42,7 +43,7 @@
 .use-form-container label {
     font-weight: bold;
     margin: 0.35rem;
-    font-size: 1rem;
+    font-size: 0.85rem;
     color: #364C63;
     margin-right: 0.5rem;
     text-align: left;
@@ -55,7 +56,7 @@
     border: 1px solid #ccc;
     border: none;
     border-radius: 5px;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     transition: border-color 0.3s ease;
     color: #323232;
     width: 100%;

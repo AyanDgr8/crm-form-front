@@ -4,27 +4,27 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./UseForm.css";
+import LastChanges from "../LastChange/LastChange";
 
 const UseForm = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const customer = location.state.customer;
 
-    // Utility function to format date for input[type="date"]
-    const formatDate = (isoString) => {
-        const date = new Date(isoString);
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, "0");
-        const day = String(date.getDate()).padStart(2, "0");
-        return `${year}-${month}-${day}`;
-    };
+    // const formatDate = (isoString) => {
+    //     const date = new Date(isoString);
+    //     const year = date.getFullYear();
+    //     const month = String(date.getMonth() + 1).padStart(2, "0");
+    //     const day = String(date.getDate()).padStart(2, "0");
+    //     return `${year}-${month}-${day}`;
+    // };
 
     const [formData, setFormData] = useState({
         first_name: customer.first_name,
         last_name: customer.last_name,
         phone_no: customer.phone_no,
         email_id: customer.email_id,
-        date_of_birth: formatDate(customer.date_of_birth),
+        // date_of_birth: formatDate(customer.date_of_birth),
         address: customer.address,
         company_name: customer.company_name,
         contact_type: customer.contact_type,
@@ -33,13 +33,15 @@ const UseForm = () => {
         agent_name: customer.agent_name,
     });
 
+    const [updatedData, setUpdatedData] = useState(formData);
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
 
     const validatePhoneNumber = (number) => {
-        const regex = /^[5-9]\d{9}$/; // First digit 5-9, followed by 9 digits
+        const regex = /^[5-9]\d{9}$/;
         return regex.test(number);
     };
 
@@ -51,7 +53,6 @@ const UseForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validate phone number and email
         if (!validatePhoneNumber(formData.phone_no)) {
             alert("Phone number must be 10 digits long and start with a digit from 5 to 9.");
             return;
@@ -62,19 +63,44 @@ const UseForm = () => {
             return;
         }
 
-        try {
-            const updatedFormData = {
-                ...formData,
-                date_of_birth: formData.date_of_birth ? new Date(formData.date_of_birth).toISOString() : null,
-            };
+        const updatedFormData = {
+            ...formData,
+        };
 
+        const changes = [];
+        for (const key in updatedFormData) {
+            if (updatedFormData[key] !== customer[key]) {
+                changes.push({
+                    field: key,
+                    old_value: customer[key] || null,
+                    new_value: updatedFormData[key] || null,
+                });
+            }
+        }
+
+        if (changes.length === 0) {
+            alert("No changes made.");
+            return;
+        }
+
+        try {
             Object.keys(updatedFormData).forEach((key) => {
                 if (updatedFormData[key] === undefined) {
                     updatedFormData[key] = null;
                 }
             });
 
+            // Update customer
             await axios.put(`http://localhost:5000/customers/use/${customer.id}`, updatedFormData);
+
+            // Log changes to customer_change_log
+            await axios.post(`http://localhost:5000/customers/log-change`, {
+                customerId: customer.id,
+                C_unique_id: customer.C_unique_id,
+                changes,
+            });
+
+            setUpdatedData(updatedFormData);
             navigate("/customers");
         } catch (error) {
             console.error("Error updating customer:", error);
@@ -86,12 +112,13 @@ const UseForm = () => {
             <h2 className="list_form_headiii">Edit Customer</h2>
             <div className="use-form-container">
                 <form onSubmit={handleSubmit}>
+                    {/* Your input fields */}
                     {[
                         { label: "First Name:", name: "first_name" },
                         { label: "Last Name:", name: "last_name" },
                         { label: "Phone Number:", name: "phone_no" },
                         { label: "Email:", name: "email_id" },
-                        { label: "Date of Birth:", name: "date_of_birth", type: "date" },
+                        // { label: "Date of Birth:", name: "date_of_birth", type: "date" },
                         { label: "Address:", name: "address" },
                         { label: "Company Name:", name: "company_name" },
                         { label: "Contact Type:", name: "contact_type" },
@@ -110,9 +137,15 @@ const UseForm = () => {
                             />
                         </div>
                     ))}
-                    <button type="submit">Update </button>
+                    <button type="submit">Update</button>
                 </form>
             </div>
+
+            <div>
+                {/* Pass customerId to LastChanges */}
+                <LastChanges customerId={customer.id} originalData={customer} updatedData={updatedData} />
+            </div>
+
         </div>
     );
 };
