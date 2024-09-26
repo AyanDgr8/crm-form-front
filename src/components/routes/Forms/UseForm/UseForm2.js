@@ -11,11 +11,20 @@ const UseForm = () => {
     const navigate = useNavigate();
     const customer = location.state.customer;
 
+    // const formatDate = (isoString) => {
+    //     const date = new Date(isoString);
+    //     const year = date.getFullYear();
+    //     const month = String(date.getMonth() + 1).padStart(2, "0");
+    //     const day = String(date.getDate()).padStart(2, "0");
+    //     return `${year}-${month}-${day}`;
+    // };
+
     const [formData, setFormData] = useState({
         first_name: customer.first_name,
         last_name: customer.last_name,
         phone_no: customer.phone_no,
         email_id: customer.email_id,
+        // date_of_birth: formatDate(customer.date_of_birth),
         address: customer.address,
         company_name: customer.company_name,
         contact_type: customer.contact_type,
@@ -109,6 +118,7 @@ const UseForm = () => {
                         { label: "Last Name:", name: "last_name" },
                         { label: "Phone Number:", name: "phone_no" },
                         { label: "Email:", name: "email_id" },
+                        // { label: "Date of Birth:", name: "date_of_birth", type: "date" },
                         { label: "Address:", name: "address" },
                         { label: "Company Name:", name: "company_name" },
                         { label: "Contact Type:", name: "contact_type" },

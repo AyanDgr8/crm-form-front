@@ -53,13 +53,35 @@ const Header = () => {
     };
 
     // Handle logout
-    const handleLogout = () => {
+    const handleLogout = async () => {
         const confirmLogout = window.confirm("Are you sure you want to log out?");
         if (confirmLogout) {
-            localStorage.removeItem("token"); // Remove the token from local storage
-            navigate("/login"); // Redirect to login page
+            try {
+                const token = localStorage.getItem("token");
+    
+                // Call the logout endpoint with the token
+                const response = await fetch('http://localhost:5000/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`, // Pass the token for auth
+                        'Content-Type': 'application/json',
+                    },
+                });
+    
+                if (response.ok) {
+                    // If successful, remove the token and navigate to login
+                    localStorage.removeItem("token");
+                    navigate("/login");
+                } else {
+                    alert("Error during logout, please try again.");
+                }
+            } catch (error) {
+                console.error("Logout error:", error);
+                alert("Failed to logout. Please try again later.");
+            }
         }
     };
+    
 
     // Check if the user is logged in
     const isLoggedIn = !!localStorage.getItem("token");
@@ -122,7 +144,7 @@ const Header = () => {
                                 aria-label="Profile"
                                 onClick={handleLogout} // Logout on click
                             />
-                            <span onClick={handleLogout} style={{ cursor: 'pointer', marginLeft: '8px' }}>Logout</span>
+                            <span onClick={handleLogout} style={{ cursor: 'pointer', marginLeft: '8px', fontSize: '0.85rem', color: '#666' }}>Logout</span>
                         </div>
                     </>
                 ) : (

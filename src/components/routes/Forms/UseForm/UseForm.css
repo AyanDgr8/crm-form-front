@@ -88,3 +88,25 @@
     background-color: #df3319;
 }
 
+
+
+.add-field-btn {
+    background-color: #5cb85c;
+    color: white;
+    padding: 0.35rem;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+    width: 15%; 
+    position: absolute;
+    bottom: 50px;
+    left: 50%; 
+    transform: translateX(-50%);
+}
+
+.add-field-btn:hover {
+    background-color: #4cae4c;
+}
