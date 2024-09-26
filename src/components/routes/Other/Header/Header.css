@@ -1,4 +1,4 @@
-/* src/components/routes/Header/Header.css */
+/* src/components/routes/Other/Header/Header.css */
 
 .header-container {
     display: flex;
@@ -11,7 +11,7 @@
 }
 
 .logo {
-    height: 50%;
+    height: 3.25rem;
 }
 
 .header-right {
@@ -39,7 +39,7 @@
 
 .form-control:focus {
     outline: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.715);
 }
 
 .srch-icon {
@@ -52,7 +52,7 @@
 }
 
 .srch-icon:hover {
-    transform: scale(1.2);
+    transform: scale(1.25);
 }
 
 /* File upload section */
@@ -74,14 +74,12 @@
     transform: scale(1.25);
 }
 
-.file-name {
-    font-size: 0.85rem;
-    color: #333;
-}
 
 .file-upl {
     font-size: 0.85rem;
     color: #666;
+    margin-right: 0.5rem;
+    margin-left: -1rem;
 }
 
 /* Profile icon styling */
@@ -95,5 +93,5 @@
 
 .pro-icon:hover {
     transform: scale(1.25);
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.688);
 }

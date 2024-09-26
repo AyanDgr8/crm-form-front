@@ -1,4 +1,5 @@
-// src/components/routes/Header/Header.js
+// src/components/routes/Other/Header/Header.js
+
 import React, { useRef, useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import "./Header.css";
@@ -11,11 +12,10 @@ const Header = () => {
 
     const handleSearch = () => {
         if (!searchQuery.trim()) {
-            alert("Please enter a search term."); // Alert if the search query is empty
+            alert("Please enter a search term."); 
             return;
         }
 
-        // Redirect to the ViewForm with search parameters
         navigate(`/customers/search?query=${encodeURIComponent(searchQuery)}`);
     };
 
@@ -38,10 +38,7 @@ const Header = () => {
             ];
 
             if (allowedTypes.includes(fileType)) {
-                // Set the file name to display it in the UI
                 setSelectedFileName(file.name);
-
-                // Process the file (e.g., send it to the backend, or parse it)
                 console.log("File selected:", file);
             } else {
                 setSelectedFileName("");
@@ -55,60 +52,89 @@ const Header = () => {
         fileInputRef.current.click();
     };
 
+    // Handle logout
+    const handleLogout = () => {
+        const confirmLogout = window.confirm("Are you sure you want to log out?");
+        if (confirmLogout) {
+            localStorage.removeItem("token"); // Remove the token from local storage
+            navigate("/login"); // Redirect to login page
+        }
+    };
+
+    // Check if the user is logged in
+    const isLoggedIn = !!localStorage.getItem("token");
+
     return (
         <div className="header-container">
-            <Link to="/customers" className="header-left">
                 <img 
-                    src="/uploads/logoo.png"
+                    src="/uploads/logo.webp"
                     className="logo"
                     alt="logo"
                     aria-label="Logo"
                 />
-            </Link>
-
             <div className="header-right">
-                <div className="header-search">
-                    <input
-                        type="text"
-                        className="form-control form-cont"
-                        aria-label="Search input"
-                        placeholder="Search"
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyDown={handleKeyDown} // Handle Enter key press
-                    />
-                    <img 
-                        src="/uploads/search.svg"
-                        className="srch-icon"
-                        alt="search-icon"
-                        onClick={handleSearch} // Search when clicking the icon
-                    />
-                </div>
-                <div className="file-upload-section">
-                    <img 
-                        src="/uploads/file.svg"
-                        className="file-icon"
-                        alt="file upload icon"
-                        aria-label="Upload file"
-                        onClick={handleIconClick}
-                    />
-                    {selectedFileName && <span className="file-name">{selectedFileName}</span>}
-                    <span className="file-upl">File Upload</span>
-                    
-                    <input
-                        type="file"
-                        ref={fileInputRef}
-                        style={{ display: "none" }}
-                        accept=".csv, .xls, .xlsx"
-                        onChange={handleFileChange}
-                    />
-                </div>
-                <img 
-                    src="/uploads/profile.svg"
-                    className="pro-icon"
-                    alt="profile icon"
-                    aria-label="Profile"
-                />
+                {isLoggedIn ? (
+                    <>
+                        <div className="header-search">
+                            <input
+                                type="text"
+                                className="form-control form-cont"
+                                aria-label="Search input"
+                                placeholder="Search"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onKeyDown={handleKeyDown}
+                            />
+                            <img 
+                                src="/uploads/search.svg"
+                                className="srch-icon"
+                                alt="search-icon"
+                                onClick={handleSearch}
+                            />
+                        </div>
+
+                        <div className="file-upload-section">
+                            <img 
+                                src="/uploads/file.svg"
+                                className="file-icon"
+                                alt="file upload icon"
+                                aria-label="Upload file"
+                                onClick={handleIconClick}
+                            />
+                            {selectedFileName && <span>{selectedFileName}</span>}
+                            <span className="file-upl">File Upload</span>
+                            
+                            <input
+                                type="file"
+                                ref={fileInputRef}
+                                style={{ display: "none" }}
+                                accept=".csv, .xls, .xlsx"
+                                onChange={handleFileChange}
+                            />
+                        </div>
+
+                        {/* Profile Icon and Logout Option */}
+                        <div className="profile-section">
+                            <img 
+                                src="/uploads/profile.svg"
+                                className="pro-icon"
+                                alt="profile icon"
+                                aria-label="Profile"
+                                onClick={handleLogout} // Logout on click
+                            />
+                            <span onClick={handleLogout} style={{ cursor: 'pointer', marginLeft: '8px' }}>Logout</span>
+                        </div>
+                    </>
+                ) : (
+                    <Link to="/login">
+                        <img 
+                            src="/uploads/profile.svg"
+                            className="pro-icon"
+                            alt="profile icon"
+                            aria-label="Profile"
+                        />
+                    </Link>
+                )}
             </div> 
         </div>
     );
