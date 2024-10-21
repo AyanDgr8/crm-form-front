@@ -3,18 +3,21 @@
 
 .list-container {
   overflow-y: auto;
-  height: 65vh;
+  height: 50vh;
   background-color: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin: auto;
-  width: 100%;
-  max-width: 1300px;
+  width: 95%;
   text-align: left;
   position: relative; 
   padding-bottom: 5rem; 
+  transition: all 0.3s ease-in-out;
 }
 
+.list-container:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+}
 
 .list_form_headi {
   color: #364C63;
@@ -22,39 +25,40 @@
   font-size: 1.25rem;
   font-weight: bold;
   letter-spacing: 0.05rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   margin-top: 1rem;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
 
+.list_form_headi:hover {
+  color: #EF6F53;
 }
 
 .customers-table {
-  width: 100%;
   border-collapse: collapse;
   background-color: white;
   border-radius: 10px;
-  overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+  width: 100%;
 }
 
 .customers-table th {
   background-color: #364C63;
   color: white;
-  padding: 0.5rem;
+  padding: 0.25rem;
+  padding-left: 0.5rem;
   text-align: left;
   font-weight: bold;
   font-size: 0.75rem;
-}
-
-.customer-name{
-  width: 9vw;
-}
-
-.customer-add{
-  width: 14vw;
+  border-bottom: 2px solid #EF6F53;
 }
 
 .customers-table td {
-  padding: 0.75rem;
+  padding: 0.25rem;
+  margin-left: 0.5rem;
+  padding-left: 0.5rem;
   border-bottom: 1px solid #ddd;
   font-size: 0.65rem;
   font-weight: 600;
@@ -99,38 +103,31 @@
 }
 
 
-
-.del-bt{
-  margin-top: 0.1rem;
-}
-
-
+/* Pagination Styling */
 .pagination-container {
   background-color: #364C63;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%; /* Full width of the list-container */
-  padding: 0.5rem 0;
+  margin-top: 5rem;
+  padding: 0.5rem; 
+  border-top: 2px solid #EF6F53; 
 }
 
-/* Pagination Styling */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #364C63;
   border-radius: 10px;
+  overflow-x: auto;
+  margin: auto;
 }
 
 .pagination button {
   background-color: #EF6F53;
   color: white;
   border: none;
-  margin: 5px;
+  margin: 0 5px;
   padding: 0.5rem;
-  font-size: 0.5rem; 
+  font-size: 0.6rem; 
   border-radius: 5px;
   font-weight: 800;
   cursor: pointer;
@@ -143,7 +140,7 @@
 }
 
 .pagination button.active {
-  background-color: #ff2a00;
+  background-color: #dd3e1e;
   font-weight: bold;
 }
 
@@ -156,14 +153,26 @@
   cursor: not-allowed;
 }
 
+.add-fi{
+  display: flex;
+  justify-content: center; 
+  margin-top: 2rem;
+}
 
-.add-field-btn{
+
+.add-field-btn {
   width: 8vw;
-  margin: auto;
-  margin-bottom: 1rem;
   background-color: #EF6F53;
+  color: white;
+  border: none;
+  padding: 0.25rem;
+  font-size: 0.75rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .add-field-btn:hover{
   background-color: #f8360b;
+  transform: translateY(2px); 
 }
