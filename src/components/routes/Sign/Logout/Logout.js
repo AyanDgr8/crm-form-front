@@ -10,7 +10,7 @@ const Logout = () => {
     const handleLogout = async () => {
         try {
             // Send a logout request to the server
-            await axios.post("http://localhost:5000/logout");
+            await axios.post("http://localhost:4000/logout");
             // Remove the token from local storage
             localStorage.removeItem("token");
             // Redirect to login page

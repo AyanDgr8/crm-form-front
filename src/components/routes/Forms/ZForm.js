@@ -2,29 +2,36 @@
 
 import React from "react";
 import { Routes, Route, useParams } from 'react-router-dom';
-import ViewForm from "./ViewForm/ViewForm";
+import SearchForm from "./SearchForm/SearchForm";
 import UseForm from "./UseForm/UseForm";
 import ListForm from "./ListForm/ListForm";
 import LastChanges from "./LastChange/LastChange";
 import Login from "../Sign/Login/Login";
 import Register from "../Sign/Register/Register";
 import Logout from "../Sign/Logout/Logout";
+import CustomForm from "./CustomForm/CustomForm";
+import ViewForm from "./ViewForm/ViewForm";
 
 const ZForm = () => {
     return (
         <Routes>
             {/* Route to the ListForm component */}
             <Route path="/customers" element={<ListForm />} />
+
+            {/* Route to the CustomForm component */}
+            <Route path="/customers/custom-fields" element={<CustomForm />} />
+            
+            {/* Route to Search Form */}
+            <Route path="/customers/search/" element={<SearchForm />} />
             
             {/* Route to View Form */}
-            <Route path="/customers/search/" element={<ViewForm />} />
+            <Route path="/customer/details/:uniqueId" element={<ViewForm />} />
 
             {/* Route to Use Form */}
             <Route path="/customers/use/:id" element={<UseForm />} />
 
             {/* Route to log changes; passing the customerId as a prop */}
             <Route path="/customers/log-change/:id" element={<LastChangeWrapper />} />
-
 
             {/* Route to the Register component */}
             <Route path="/register" element={<Register />} />

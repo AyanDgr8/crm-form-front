@@ -46,7 +46,7 @@ const Register = () => {
                 role: 'User' // Default role
             };
             // Register the user
-            await axios.post("http://localhost:5000/register", newUser);
+            await axios.post("http://localhost:4000/register", newUser);
             alert("User registered successfully!");
             navigate("/login"); 
         } catch (error) {
@@ -90,6 +90,7 @@ const Register = () => {
                             value={formData.username} 
                             onChange={handleInputChange} 
                             required 
+                            aria-label="Username"
                         />
                         
                         <label>Email</label>
@@ -100,6 +101,7 @@ const Register = () => {
                             value={formData.email} 
                             onChange={handleInputChange} 
                             required 
+                            aria-label="Email"
                         />
                         
                         <label>Password</label>
@@ -110,6 +112,7 @@ const Register = () => {
                             value={formData.password} 
                             onChange={handleInputChange} 
                             required 
+                            aria-label="Password"
                         />
                         
                         <button type="submit">Register</button>

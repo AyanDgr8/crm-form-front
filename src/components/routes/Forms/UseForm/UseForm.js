@@ -82,10 +82,10 @@ const UseForm = () => {
             });
 
             // Update customer
-            await axios.put(`http://localhost:5000/customers/use/${customer.id}`, updatedFormData);
+            await axios.put(`http://localhost:4000/customers/use/${customer.id}`, updatedFormData);
 
             // Log changes to customer_change_log
-            await axios.post(`http://localhost:5000/customers/log-change`, {
+            await axios.post(`http://localhost:4000/customers/log-change`, {
                 customerId: customer.id,
                 C_unique_id: customer.C_unique_id,
                 changes,

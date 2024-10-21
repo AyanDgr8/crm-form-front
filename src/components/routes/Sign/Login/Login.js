@@ -43,7 +43,7 @@ const Login = () => {
         
         try {
 
-            const response = await axios.post("http://localhost:5000/login", formData);
+            const response = await axios.post("http://localhost:4000/login", formData);
             alert("User logged in successfully!");
             localStorage.setItem("token", response.data.token); // Store the token
             navigate("/customers"); 

@@ -15,7 +15,7 @@ const LastChanges = ({ customerId }) => {
       }
 
       try {
-        const response = await axios.get(`http://localhost:5000/customers/log-change/${customerId}`);
+        const response = await axios.get(`http://localhost:4000/customers/log-change/${customerId}`);
         setChanges(response.data.changeHistory); // Assuming the response structure includes changeHistory
       } catch (error) {
         console.error("Error fetching change history:", error);

@@ -1,15 +1,15 @@
 // src/components/routes/Other/Header/Header.js
 
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from 'react-router-dom';
+import FileUpload from './FileUpload';
 import "./Header.css";
 
 const Header = () => {
-    const fileInputRef = useRef(null);
-    const [selectedFileName, setSelectedFileName] = useState("");
     const [searchQuery, setSearchQuery] = useState('');
     const navigate = useNavigate(); 
 
+    
     const handleSearch = () => {
         if (!searchQuery.trim()) {
             alert("Please enter a search term."); 
@@ -19,57 +19,27 @@ const Header = () => {
         navigate(`/customers/search?query=${encodeURIComponent(searchQuery)}`);
     };
 
-    // Handle the Enter key press for search
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             handleSearch();
         }
     };
 
-    // Handle file selection
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const fileType = file.type;
-            const allowedTypes = [
-                "application/vnd.ms-excel", // .xls
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xlsx
-                "text/csv" // .csv
-            ];
-
-            if (allowedTypes.includes(fileType)) {
-                setSelectedFileName(file.name);
-                console.log("File selected:", file);
-            } else {
-                setSelectedFileName("");
-                alert("Please select a valid CSV or Excel file.");
-            }
-        }
-    };
-
-    // Trigger the file input on icon click
-    const handleIconClick = () => {
-        fileInputRef.current.click();
-    };
-
-    // Handle logout
     const handleLogout = async () => {
         const confirmLogout = window.confirm("Are you sure you want to log out?");
         if (confirmLogout) {
             try {
                 const token = localStorage.getItem("token");
-    
-                // Call the logout endpoint with the token
-                const response = await fetch('http://localhost:5000/logout', {
+
+                const response = await fetch('http://localhost:4000/logout', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`, // Pass the token for auth
                         'Content-Type': 'application/json',
                     },
                 });
-    
+
                 if (response.ok) {
-                    // If successful, remove the token and navigate to login
                     localStorage.removeItem("token");
                     navigate("/login");
                 } else {
@@ -81,19 +51,17 @@ const Header = () => {
             }
         }
     };
-    
 
-    // Check if the user is logged in
     const isLoggedIn = !!localStorage.getItem("token");
 
     return (
         <div className="header-container">
-                <img 
-                    src="/uploads/logo.webp"
-                    className="logo"
-                    alt="logo"
-                    aria-label="Logo"
-                />
+            <img 
+                src="/uploads/logo.webp"
+                className="logo"
+                alt="logo"
+                aria-label="Logo"
+            />
             <div className="header-right">
                 {isLoggedIn ? (
                     <>
@@ -116,26 +84,9 @@ const Header = () => {
                         </div>
 
                         <div className="file-upload-section">
-                            <img 
-                                src="/uploads/file.svg"
-                                className="file-icon"
-                                alt="file upload icon"
-                                aria-label="Upload file"
-                                onClick={handleIconClick}
-                            />
-                            {selectedFileName && <span>{selectedFileName}</span>}
-                            <span className="file-upl">File Upload</span>
-                            
-                            <input
-                                type="file"
-                                ref={fileInputRef}
-                                style={{ display: "none" }}
-                                accept=".csv, .xls, .xlsx"
-                                onChange={handleFileChange}
-                            />
+                            <FileUpload />
                         </div>
 
-                        {/* Profile Icon and Logout Option */}
                         <div className="profile-section">
                             <img 
                                 src="/uploads/profile.svg"
