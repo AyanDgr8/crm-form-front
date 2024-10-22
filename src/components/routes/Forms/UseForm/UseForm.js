@@ -13,15 +13,20 @@ const UseForm = () => {
 
     const [formData, setFormData] = useState({
         first_name: customer.first_name,
+        middle_name: customer.middle_name,
         last_name: customer.last_name,
-        phone_no: customer.phone_no,
+        phone_no_primary: customer.phone_no_primary,
+        whatsapp_num: customer.whatsapp_num,
+        phone_no_secondary: customer.phone_no_secondary,
         email_id: customer.email_id,
         address: customer.address,
+        country: customer.country,
         company_name: customer.company_name,
         contact_type: customer.contact_type,
         source: customer.source,
         disposition: customer.disposition,
         agent_name: customer.agent_name,
+        gender: customer.gender || 'male',
     });
 
     const [updatedData, setUpdatedData] = useState(formData);
@@ -44,7 +49,7 @@ const UseForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!validatePhoneNumber(formData.phone_no)) {
+        if (!validatePhoneNumber(formData.phone_no_primary)) {
             alert("Phone number must be 10 digits long and start with a digit from 5 to 9.");
             return;
         }
@@ -56,6 +61,10 @@ const UseForm = () => {
 
         const updatedFormData = {
             ...formData,
+            // If optional fields are empty, they should remain as empty strings or null
+            middle_name: formData.middle_name || null,
+            whatsapp_num: formData.whatsapp_num || null,
+            phone_no_secondary: formData.phone_no_secondary || null
         };
 
         const changes = [];
@@ -71,6 +80,7 @@ const UseForm = () => {
 
         if (changes.length === 0) {
             alert("No changes made.");
+            navigate("/customers");
             return;
         }
 
@@ -81,11 +91,13 @@ const UseForm = () => {
                 }
             });
 
+            const apiUrl = process.env.REACT_APP_API_URL; // Get the base URL from the environment variable
+    
             // Update customer
-            await axios.put(`http://localhost:4000/customers/use/${customer.id}`, updatedFormData);
+            await axios.put(`${apiUrl}/customer/${customer.id}`, updatedFormData);
 
             // Log changes to customer_change_log
-            await axios.post(`http://localhost:4000/customers/log-change`, {
+            await axios.post(`${apiUrl}/customers/log-change`, {
                 customerId: customer.id,
                 C_unique_id: customer.C_unique_id,
                 changes,
@@ -101,39 +113,56 @@ const UseForm = () => {
     return (
         <div>
             <h2 className="list_form_headiii">Edit Customer</h2>
-            <div className="use-form-container">
-                <form onSubmit={handleSubmit}>
-                    {/* Your input fields */}
-                    {[
-                        { label: "First Name:", name: "first_name" },
-                        { label: "Last Name:", name: "last_name" },
-                        { label: "Phone Number:", name: "phone_no" },
-                        { label: "Email:", name: "email_id" },
-                        { label: "Address:", name: "address" },
-                        { label: "Company Name:", name: "company_name" },
-                        { label: "Contact Type:", name: "contact_type" },
-                        { label: "Source:", name: "source" },
-                        { label: "Disposition:", name: "disposition" },
-                        { label: "Agent Name:", name: "agent_name" },
-                    ].map(({ label, name, type = "text", disabled = false }) => (
-                        <div className="label-input" key={name}>
-                            <label>{label}</label>
-                            <input
-                                type={type}
-                                name={name}
-                                value={formData[name]}
-                                onChange={handleInputChange}
-                                disabled={disabled}
-                            />
-                        </div>
-                    ))}
-                    <button type="submit">Update</button>
-                </form>
-            </div>
+            <div className="use-last-container">
 
-            <div>
-                {/* Pass customerId to LastChanges */}
-                <LastChanges customerId={customer.id} originalData={customer} updatedData={updatedData} />
+                <div className="use-form-container">
+                    <form onSubmit={handleSubmit}>
+                        {/* Your input fields */}
+                        {[
+                            { label: "First Name:", name: "first_name" },
+                            { label: "Middle Name:", name: "middle_name" },
+                            { label: "Last Name:", name: "last_name" },
+                            { label: "Phone(Primary):", name: "phone_no_primary" },
+                            { label: "Phone(WhatsApp):", name: "whatsapp_num" },
+                            { label: "Phone(Secondary):", name: "phone_no_secondary" },
+                            { label: "Email:", name: "email_id" },
+                            { label: "Company Name:", name: "company_name" },
+                            { label: "Contact Type:", name: "contact_type" },
+                            { label: "Address:", name: "address" },
+                            { label: "Country:", name: "country" },
+                            { label: "Disposition:", name: "disposition" },
+                            { label: "Source:", name: "source" },
+                            { label: "Agent Name:", name: "agent_name" },
+                        ].map(({ label, name, type = "text", disabled = false }) => (
+                            <div className="label-input" key={name}>
+                                <label>{label}</label>
+                                <input
+                                    type={type}
+                                    name={name}
+                                    value={formData[name]}
+                                    onChange={handleInputChange}
+                                    disabled={disabled}
+                                />
+                            </div>
+                        ))}
+
+                        {/* Gender Dropdown */}
+                        <div className="label-input">
+                            <label>Gender:</label>
+                            <select name="gender" value={formData.gender} onChange={handleInputChange}>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <button type="submit">Update</button>
+                    </form>
+                </div>
+
+                <div>
+                    {/* Pass customerId to LastChanges */}
+                    <LastChanges customerId={customer.id} originalData={customer} updatedData={updatedData} />
+                </div>
             </div>
 
         </div>

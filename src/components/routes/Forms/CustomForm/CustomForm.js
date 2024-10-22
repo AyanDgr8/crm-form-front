@@ -14,7 +14,8 @@ const CustomForm = () => {
     useEffect(() => {
         const fetchLastUpdatedCustomers = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/customers'); // Adjusted endpoint
+                const apiUrl = process.env.REACT_APP_API_URL; 
+                const response = await axios.get(`${apiUrl}/customers`); // Adjusted endpoint
                 setCustomers(response.data); // Adjust based on your API response structure
             } catch (error) {
                 console.error('Error fetching last updated customers:', error);
@@ -63,8 +64,9 @@ const CustomForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            const apiUrl = process.env.REACT_APP_API_URL; 
             for (const field of formFields) {
-                await axios.post('http://localhost:4000/custom-fields', { 
+                await axios.post(`${apiUrl}/custom-fields`, { 
                     fieldName: field.fieldName,
                     fieldType: field.fieldType,
                     dropdownOptions: field.dropdownOptions
@@ -106,7 +108,7 @@ const CustomForm = () => {
                             <option value="email">Email</option>
                             <option value="dropdown">Dropdown</option> {/* Added dropdown option */}
                         </select>
-                        {field.fieldType === "dropdown" && ( // Show input for dropdown options if selected
+                        {field.fieldType === "dropdown" && ( 
                             <div>
                                 {field.dropdownOptions.map((option, optionIndex) => (
                                     <div key={optionIndex} className="dropdown-option">

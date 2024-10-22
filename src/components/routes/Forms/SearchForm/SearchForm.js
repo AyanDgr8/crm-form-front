@@ -25,7 +25,8 @@ const SearchForm = () => {
         if (searchQuery) params.append("query", searchQuery);
 
         const queryString = params.toString();
-        const url = `http://localhost:4000/customers/search?${queryString}`;
+        const apiUrl = process.env.REACT_APP_API_URL; // Get the base URL from the environment variable
+        const url = `${apiUrl}/customers/search?${queryString}`; // Use the environment variable for the URL
 
         const response = await axios.get(url);
         setResults(response.data);
@@ -41,7 +42,7 @@ const SearchForm = () => {
   }, [location.search]);
 
   const handleEdit = (customer) => {
-    navigate('/customers/use/' + customer.id, { state: { customer } });
+    navigate('/customer/phone=' + customer.phone_no_primary, { state: { customer } });
   };
 
   if (loading) return <p>Loading...</p>;
@@ -49,43 +50,35 @@ const SearchForm = () => {
 
   return (
     <div>
-      <h2 className="list_form_headi">Search Results</h2>
-      <div className="list-container">
+      <h2 className="list_form_headiiii">Search Results</h2>
+      <div className="list-containerr">
         {results.length > 0 ? (
           <table className="customers-table">
             <thead>
               <tr className="customer-row">
-                <th>ID</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Date Created</th>
-                <th>Date of Birth</th>
-                <th>Address</th>
-                <th>Contact Type</th>
-                <th>Source</th>
-                <th>Disposition</th>
-                <th>Agent Name</th>
-                <th>Actions</th>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Company Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Agent Name</th>
+                  <th>Country</th>
+                  <th>Disposition</th>
+                  <th>Last Updated</th>
               </tr>
             </thead>
             <tbody className="customer-body">
               {results.map((customer) => (
-                <tr key={customer.id}>
+                <tr key={customer.id} onClick={() => handleEdit(customer)} style={{ cursor: 'pointer' }}>
                   <td>{customer.C_unique_id}</td>
-                  <td className="customer-name">{customer.first_name} {customer.last_name}</td>
+                  <td className="customer-name">{customer.first_name} {customer.middle_name} {customer.last_name}</td>
+                  <td>{customer.company_name}</td>
                   <td>{customer.email_id}</td>
-                  <td>{customer.phone_no}</td>
-                  <td>{new Date(customer.date_created).toLocaleDateString()}</td>
-                  <td>{new Date(customer.date_of_birth).toISOString().split('T')[0]}</td>
-                  <td className="customer-add">{customer.address}</td>
-                  <td>{customer.contact_type}</td>
-                  <td>{customer.source}</td>
-                  <td>{customer.disposition}</td>
+                  <td>{customer.phone_no_primary}</td>
                   <td>{customer.agent_name}</td>
-                  <td>
-                    <button onClick={() => handleEdit(customer)} className="edit-btnn">Edit</button>
-                  </td>
+                  <td>{customer.country}</td>
+                  <td>{customer.disposition}</td>
+                  <td>{new Date(customer.last_updated).toLocaleDateString()}</td>
                 </tr>
               ))}
             </tbody>

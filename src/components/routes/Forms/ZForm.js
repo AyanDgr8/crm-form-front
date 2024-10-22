@@ -28,7 +28,10 @@ const ZForm = () => {
             <Route path="/customer/details/:uniqueId" element={<ViewForm />} />
 
             {/* Route to Use Form */}
-            <Route path="/customers/use/:id" element={<UseForm />} />
+            <Route path="/customer/:id" element={<UseForm />} />
+
+            {/* Route to Use Form */}
+            <Route path="/customer/phone:phone" element={<UseForm />} />
 
             {/* Route to log changes; passing the customerId as a prop */}
             <Route path="/customers/log-change/:id" element={<LastChangeWrapper />} />

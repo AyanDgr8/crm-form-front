@@ -45,8 +45,9 @@ const Register = () => {
                 ...formData,
                 role: 'User' // Default role
             };
+            const apiUrl = process.env.REACT_APP_API_URL; // Get the base URL from the environment variable
             // Register the user
-            await axios.post("http://localhost:4000/register", newUser);
+            await axios.post(`${apiUrl}/register`, newUser);
             alert("User registered successfully!");
             navigate("/login"); 
         } catch (error) {

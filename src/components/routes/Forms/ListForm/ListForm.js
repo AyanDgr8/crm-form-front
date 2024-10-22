@@ -13,12 +13,14 @@ const ListForm = () => {
   const [customersPerPage] = useState(5); 
   const [user, setUser] = useState(null); // State to hold user info
   const [isAdmin, setIsAdmin] = useState(false); // State to track if user is an admin
+  const [customFields, setCustomFields] = useState([]); 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLastUpdatedCustomers = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/customers');
+        const apiUrl = process.env.REACT_APP_API_URL; // Get the base URL from the environment variable
+        const response = await axios.get(`${apiUrl}/customers`); 
         setCustomers(response.data);
       } catch (error) {
         setError('Failed to fetch customer data.');
@@ -31,7 +33,8 @@ const ListForm = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('token'); // or wherever you store your token
-        const userResponse = await axios.get('http://localhost:4000/current-user', {
+        const apiUrl = process.env.REACT_APP_API_URL; // Get the base URL from the environment variable
+        const userResponse = await axios.get(`${apiUrl}/current-user`, { // Use the environment variable for the base URL
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -54,6 +57,22 @@ const ListForm = () => {
     fetchUser(); // Call fetchUser when the component mounts
   }, []);
 
+  // Function to format the last updated timestamp
+  const formatDateTime = (dateString) => {
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false, // 24-hour format
+    };
+
+    const date = new Date(dateString);
+    return date.toLocaleString('en-GB', options); // Adjust locale if needed
+  };
+
   // Get the current customers to display based on the page
   const indexOfLastCustomer = currentPage * customersPerPage;
   const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
@@ -63,7 +82,7 @@ const ListForm = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const handleEdit = (customer) => {
-    navigate(`/customers/use/${customer.id}`, { state: { customer } });
+    navigate(`/customer/phone=${customer.phone_no_primary}`, { state: { customer } });
   };
 
   const handleAddField = () => {
@@ -91,15 +110,19 @@ const ListForm = () => {
                 <tr className="customer-row">
                   <th>ID</th>
                   <th>Name</th>
+                  <th>Company Name</th>
                   <th>Email</th>
                   <th>Phone</th>
-                  <th>Date Created</th>
-                  <th>Date of Birth</th>
-                  <th>Address</th>
-                  <th>Contact Type</th>
-                  <th>Source</th>
-                  <th>Disposition</th>
                   <th>Agent Name</th>
+                  <th>Country</th>
+                  <th>Disposition</th>
+                  <th>Last Updated</th>
+                  {/* <th>Contact Type</th> */}
+                  {/* <th>Date Created</th> */}
+                  {/* <th>Date of Birth</th> */}
+                  {/* <th>Address</th> */}
+                  {/* <th>Source</th>
+                  <th>Disposition</th> */}
                   {/* <th>Actions</th> */}
                 </tr>
               </thead>
@@ -107,16 +130,20 @@ const ListForm = () => {
                 {currentCustomers.map((customer) => (
                   <tr key={customer.id} onClick={() => handleEdit(customer)} style={{ cursor: 'pointer' }}>
                     <td>{customer.C_unique_id}</td>
-                    <td className="customer-name">{customer.first_name} {customer.last_name}</td>
+                    <td className="customer-name">{customer.first_name} {customer.middle_name} {customer.last_name}</td>
+                    <td>{customer.company_name}</td>
                     <td>{customer.email_id}</td>
-                    <td>{customer.phone_no}</td>
-                    <td>{new Date(customer.date_created).toLocaleDateString()}</td>
-                    <td>{new Date(customer.date_of_birth).toLocaleDateString()}</td>
-                    <td className="customer-add">{customer.address}</td>
-                    <td>{customer.contact_type}</td>
-                    <td>{customer.source}</td>
-                    <td>{customer.disposition}</td>
+                    <td>{customer.phone_no_primary}</td>
                     <td>{customer.agent_name}</td>
+                    <td>{customer.country}</td>
+                    <td>{customer.disposition}</td>
+                    <td>{formatDateTime(customer.last_updated)}</td>
+                    {/* <td>{customer.contact_type}</td> */}
+                    {/* <td>{new Date(customer.date_created).toLocaleDateString()}</td> */}
+                    {/* <td>{new Date(customer.date_of_birth).toLocaleDateString()}</td> */}
+                    {/* <td className="customer-add">{customer.address}</td> */}
+                    {/* <td>{customer.source}</td>
+                    <td>{customer.disposition}</td> */}
                     {/* <td>
                       <button
                         onClick={() => handleEdit(customer)}

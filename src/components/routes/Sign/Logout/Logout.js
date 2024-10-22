@@ -9,8 +9,9 @@ const Logout = () => {
 
     const handleLogout = async () => {
         try {
+            const apiUrl = process.env.REACT_APP_API_URL; // Get the base URL from the environment variable
             // Send a logout request to the server
-            await axios.post("http://localhost:4000/logout");
+            await axios.post(`${apiUrl}/logout`);
             // Remove the token from local storage
             localStorage.removeItem("token");
             // Redirect to login page

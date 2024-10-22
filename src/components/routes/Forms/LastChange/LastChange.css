@@ -2,30 +2,29 @@
 
 .last-changes-container {
     overflow-y: auto;
-    height: 27.5vh;
-    background-color: #fdfdfd;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.275);
+    height: 70vh;
+    background-color: #364C63;
+    /* border-radius: 10px; */
     margin: auto;
-    width: 80%;
+    max-width: 100%;
     text-align: left;
     position: relative; 
-    margin-top: 0.5rem;
 }
 
 .last-headi {
-    color: #364C63;
+    /* color: #364C63; */
+    color: white;
     text-align: center;
-    font-size: 1.25rem;
-    font-weight: bold;
+    font-size: 1rem;
+    font-weight: 900;
     letter-spacing: 0.05rem;
     margin-bottom: 1rem;
     margin-top: 0.5rem;
 }
 
 .changes-content{
-    font-size: 0.75em;
-    margin: auto;
-    margin-left: 1rem;
+    font-size: 0.8em;
+    margin: 1rem;
+    color: white;
 
 }

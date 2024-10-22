@@ -42,8 +42,8 @@ const Login = () => {
         e.target.querySelector('button[type="submit"]').disabled = true;
         
         try {
-
-            const response = await axios.post("http://localhost:4000/login", formData);
+            const apiUrl = process.env.REACT_APP_API_URL; // Get the base URL from the environment variable
+            const response = await axios.post(`${apiUrl}/login`, formData);
             alert("User logged in successfully!");
             localStorage.setItem("token", response.data.token); // Store the token
             navigate("/customers"); 

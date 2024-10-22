@@ -30,8 +30,9 @@ const Header = () => {
         if (confirmLogout) {
             try {
                 const token = localStorage.getItem("token");
-
-                const response = await fetch('http://localhost:4000/logout', {
+                const apiUrl = process.env.REACT_APP_API_URL; // Get the base URL from the environment variable
+    
+                const response = await fetch(`${apiUrl}/logout`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`, // Pass the token for auth

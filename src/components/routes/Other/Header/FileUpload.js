@@ -106,8 +106,9 @@ const FileUpload = () => {
     };
     
     const sendFileData = (data) => {
+        const apiUrl = process.env.REACT_APP_API_URL; // Get the base URL from the environment variable
         // Send the entire filtered dataset to the backend
-        fetch('http://localhost:4000/upload-customer-data', {
+        fetch(`${apiUrl}/upload-customer-data`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

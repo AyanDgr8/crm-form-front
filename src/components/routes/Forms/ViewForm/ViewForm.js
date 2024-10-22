@@ -16,8 +16,8 @@ const ViewForm = () => {
         const fetchData = async () => {
         setLoading(true);
         try {
-            // Ensure the URL is correct (note the singular 'customer' in the endpoint)
-            const url = "http://localhost:4000/customers/details/${uniqueId}"; 
+            const apiUrl = process.env.REACT_APP_API_URL; // Get the base URL from the environment variable
+            const url = `${apiUrl}/customers/details/${uniqueId}`; // Use template literal for dynamic URL
             const response = await axios.get(url);
             setCustomer(response.data); // Set the single customer data
         } catch (error) {

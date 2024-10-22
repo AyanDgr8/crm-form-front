@@ -15,7 +15,9 @@ const LastChanges = ({ customerId }) => {
       }
 
       try {
-        const response = await axios.get(`http://localhost:4000/customers/log-change/${customerId}`);
+        const apiUrl = process.env.REACT_APP_API_URL; // Get the base URL from the environment variable
+        const response = await axios.get(`${apiUrl}/customers/log-change/${customerId}`); // Use dynamic URL
+        console.log(response.data); // Log the entire response to see its structure
         setChanges(response.data.changeHistory); // Assuming the response structure includes changeHistory
       } catch (error) {
         console.error("Error fetching change history:", error);
@@ -31,7 +33,8 @@ const LastChanges = ({ customerId }) => {
         {changes.length > 0 ? (
             changes.map((change, index) => (
             <p className="changes-content" key={index}>
-                <strong>Changes made on:</strong> {new Date(change.changed_at).toLocaleString()} || updated <strong>{change.field}</strong> from <em>{change.old_value}</em> to <em>{change.new_value}</em>.
+            <strong>Changes made on:</strong> {new Date(change.changed_at).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })} || updated <strong>{change.field}</strong> from <em>{change.old_value}</em> to <em>{change.new_value}</em>  
+            || <strong> updated by</strong> <em>{change.username}</em>
             </p>
             ))
         ) : (

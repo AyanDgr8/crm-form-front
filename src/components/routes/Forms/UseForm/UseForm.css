@@ -1,17 +1,20 @@
 /* src/components/routes/Forms/UseForm/UseForm.css */
 
+.use-last-container{
+    display: flex;
+    width: 100%;
+}
 
 .use-form-container {
     overflow-y: auto;
-    height: 45vh;
     background-color: #f4f4f4;
-    padding: 1rem;
+    padding: 0.5rem;
     margin: auto;
-    width: 75%;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300vw;
+    /* border-radius: 10px; */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     position: relative;
-    margin-bottom: 1rem;
+    height: 70vh;
 }
 
 .list_form_headiii {
@@ -22,22 +25,40 @@
     letter-spacing: 0.05rem;
     margin-bottom: 1rem;
     margin-top: 1rem;
-
 }
 
+.list_form_headiii:hover {
+    color: #EF6F53;
+  }
 
 .use-form-container form {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    gap: 0.25rem; 
 }
 
 .label-input {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 48%; 
-    margin-bottom: 0.5rem;
+    width: 30%; 
+    margin-bottom: 0.25rem;
+}
+
+.label-input:hover{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.label-input select{
+    font-size: 0.7rem;
+    width: 50%; 
+    background-color: white;
+    color: #323232;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+
 }
 
 .use-form-container label {
@@ -63,7 +84,7 @@
 }
 
 .use-form-container input:focus {
-    border-color: #364C63;
+    border-color: #1c2e40;
     outline: none;
 }
 
@@ -88,25 +109,3 @@
     background-color: #df3319;
 }
 
-
-
-.add-field-btn {
-    background-color: #5cb85c;
-    color: white;
-    padding: 0.35rem;
-    font-size: 0.85rem;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: background-color 0.3s ease;
-    width: 15%; 
-    position: absolute;
-    bottom: 50px;
-    left: 50%; 
-    transform: translateX(-50%);
-}
-
-.add-field-btn:hover {
-    background-color: #4cae4c;
-}
