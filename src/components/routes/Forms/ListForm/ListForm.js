@@ -88,6 +88,9 @@ const ListForm = () => {
   const handleAddField = () => {
     navigate("/customers/custom-fields"); 
   };
+  const handleAddRecord = () => {
+    navigate("/customer/new"); 
+  };
 
   // New function to handle row click
   const handleRowClick = (uniqueId) => {
@@ -101,7 +104,7 @@ const ListForm = () => {
 
   return (
     <div>
-      <h2 className="list_form_headi">Customers Relationship Management</h2>
+      <h2 className="list_form_headi">Customer Relationship Management</h2>
       <div className="list-container">
         {currentCustomers.length > 0 ? (
           <>
@@ -171,6 +174,13 @@ const ListForm = () => {
 
             {/* Pagination Controls */}
             <div className="pagination-container">
+              <button 
+                  onClick={handleAddRecord} 
+                  className="add-record-btn"
+                  aria-label="Add new customer"
+                >
+                  Add Record 
+              </button>
               <div className="pagination">
                 {/* Previous button */}
                 {currentPage > 1 && (

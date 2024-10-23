@@ -27,6 +27,7 @@ const UseForm = () => {
         disposition: customer.disposition,
         agent_name: customer.agent_name,
         gender: customer.gender || 'male',
+        comment: customer.comment,
     });
 
     const [updatedData, setUpdatedData] = useState(formData);
@@ -155,6 +156,22 @@ const UseForm = () => {
                                 <option value="other">Other</option>
                             </select>
                         </div>
+
+                        {/* Comment Section */}
+                        <div className="label-input comment">
+                            <label>Comment:</label>
+                            <div className="textarea-container">
+                                <textarea
+                                    name="comment"
+                                    value={formData.comment}
+                                    onChange={handleInputChange}
+                                    rows="2"
+                                    placeholder="Enter any additional comments"
+                                    className="comet"
+                                />
+                            </div>
+                        </div>
+
                         <button type="submit">Update</button>
                     </form>
                 </div>

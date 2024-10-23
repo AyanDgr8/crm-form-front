@@ -45,6 +45,13 @@ const SearchForm = () => {
     navigate('/customer/phone=' + customer.phone_no_primary, { state: { customer } });
   };
 
+
+
+  // Function to handle navigation to home
+  const handleHomeClick = () => {
+    navigate('/customers');
+  }
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p className="error">{error}</p>;
 
@@ -83,10 +90,13 @@ const SearchForm = () => {
               ))}
             </tbody>
           </table>
+          
         ) : (
           <p>No results found.</p>
         )}
       </div>
+      {/* Updated button to navigate to /customers */}
+      <button className="add-home-btn"onClick={handleHomeClick}>Home</button>
     </div>
   );
 };

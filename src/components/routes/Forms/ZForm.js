@@ -11,6 +11,7 @@ import Register from "../Sign/Register/Register";
 import Logout from "../Sign/Logout/Logout";
 import CustomForm from "./CustomForm/CustomForm";
 import ViewForm from "./ViewForm/ViewForm";
+import CreateForm from "./CreateForm/CreateForm";
 
 const ZForm = () => {
     return (
@@ -29,6 +30,9 @@ const ZForm = () => {
 
             {/* Route to Use Form */}
             <Route path="/customer/:id" element={<UseForm />} />
+
+            {/* Route to create a new customer record */}
+            <Route path="/customer/new" element={<CreateForm />} />
 
             {/* Route to Use Form */}
             <Route path="/customer/phone:phone" element={<UseForm />} />

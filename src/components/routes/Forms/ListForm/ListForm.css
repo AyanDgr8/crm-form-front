@@ -57,6 +57,7 @@
 .customers-table td {
   padding: 0.25rem;
   margin-left: 0.5rem;
+  padding-left: 0.5rem;
   border-bottom: 1px solid #ddd;
   font-size: 0.65rem;
   font-weight: 600;
@@ -71,9 +72,6 @@
 .customers-table tr:nth-child(even) {
   background-color: #f9f9f9;
 }
-
-
-
 
 
 /* Edit button styles */
@@ -147,7 +145,8 @@
   margin-top: 2rem;
 }
 
-.add-field-btn {
+.add-record-btn {
+  display: flex;
   width: 8vw;
   background-color: #EF6F53;
   color: white;
@@ -156,6 +155,32 @@
   font-size: 0.75rem;
   border-radius: 5px;
   cursor: pointer;
+  margin: auto;
+  align-items:center ;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.add-record-btn:hover{
+  background-color: #f8360b;
+  transform: translateY(1px); 
+}
+
+.add-field-btn {
+  display: flex;
+  width: 8vw;
+  background-color: #EF6F53;
+  color: white;
+  border: none;
+  padding: 0.25rem;
+  font-size: 0.75rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: auto;
+  align-items:center ;
+  justify-content: center;
+  
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 

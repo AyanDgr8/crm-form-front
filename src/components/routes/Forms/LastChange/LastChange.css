@@ -3,7 +3,7 @@
 .last-changes-container {
     overflow-y: auto;
     height: 70vh;
-    background-color: #364C63;
+    background-color: #EF6F53;
     /* border-radius: 10px; */
     margin: auto;
     max-width: 100%;
@@ -12,8 +12,7 @@
 }
 
 .last-headi {
-    /* color: #364C63; */
-    color: white;
+    color: #364C63;
     text-align: center;
     font-size: 1rem;
     font-weight: 900;

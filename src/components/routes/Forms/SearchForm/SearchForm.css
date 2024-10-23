@@ -72,3 +72,26 @@
     margin-top: 1rem;
     margin-bottom: 3rem;
 }
+
+
+.add-home-btn {
+    display: flex;
+    width: 8vw;
+    background-color: #EF6F53;
+    color: white;
+    border: none;
+    padding: 0.25rem;
+    font-size: 0.75rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: auto;
+    align-items:center ;
+    justify-content: center;
+    margin-top: 5rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+  
+.add-home-btn:hover{
+    background-color: #f8360b;
+    transform: translateY(2px); 
+}

@@ -1,23 +1,16 @@
-/* src/components/routes/Forms/UseForm/UseForm.css */
+/* src/components/routes/Forms/CreateForm/CreateFormForm.css */
 
-.use-last-container{
-    display: flex;
-    width: 100%;
-}
 
-.use-form-container {
+.create-form-container {
     overflow-y: auto;
     background-color: #f4f4f4;
     padding: 0.5rem;
     margin: auto;
-    width: 300vw;
-    /* border-radius: 10px; */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     position: relative;
-    height: 70vh;
 }
 
-.list_form_headiii {
+.create_form_headiii {
     color: #364C63;
     text-align: center;
     font-size: 1.25rem;
@@ -27,11 +20,11 @@
     margin-top: 1rem;
 }
 
-.list_form_headiii:hover {
+.create_form_headiii:hover {
     color: #EF6F53;
   }
 
-.use-form-container form {
+.create-form-container form {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -57,7 +50,7 @@
 
 }
 
-.use-form-container label {
+.create-form-container label {
     font-weight: bold;
     margin: 0.35rem;
     font-size: 0.85rem;
@@ -67,7 +60,7 @@
     width: 35%; 
 }
 
-.use-form-container input {
+.create-form-container input {
     flex: 1;
     padding: 0.15rem;
     border: 1px solid #ccc;
@@ -79,12 +72,12 @@
     width: 100%;
 }
 
-.use-form-container input:focus {
+.create-form-container input:focus {
     border-color: #1c2e40;
     outline: none;
 }
 
-.use-form-container button {
+.create-form-container button {
     background-color: #EF6F53;
     color: white;
     padding: 0.15rem;
@@ -101,10 +94,9 @@
 
 }
 
-.use-form-container button:hover {
+.create-form-container button:hover {
     background-color: #df3319;
 }
-
 
 .comment {
     display: flex;

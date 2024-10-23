@@ -8,43 +8,18 @@ import "./Header.css";
 const FileUpload = () => {
     const fileInputRef = useRef(null);
     const [selectedFileName, setSelectedFileName] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
     // Required headers to match the database columns
     const requiredHeaders = [
-        "first_name", "last_name", "phone_no", "email_id", 
-        "date_of_birth", "address", "company_name", "C_unique_id", 
-        "contact_type", "source", "disposition", "agent_name", "date_created"
+        "first_name", "middle_name", "last_name",
+        "phone_no_primary", "whatsapp_num", "phone_no_secondary", 
+        "email_id", "gender", "address", "country", 
+        "date_of_birth", "company_name", 
+        "contact_type", "source", "disposition", 
+        "agent_name", "date_created", "comment"
     ];
-
-    // Handle file upload and parsing logic
-    const handleFileUpload = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const fileType = file.type;
-            const allowedTypes = [
-                "application/vnd.ms-excel", // .xls
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xlsx
-                "text/csv" // .csv
-            ];
-    
-            if (allowedTypes.includes(fileType)) {
-                setSelectedFileName(file.name);
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    const data = event.target.result;
-                    if (fileType === "text/csv") {
-                        parseCSV(data);
-                    } else {
-                        parseExcel(data);
-                    }
-                };
-                reader.readAsBinaryString(file); // Read the file
-            } else {
-                setSelectedFileName("");
-                alert("Please select a valid CSV or Excel file.");
-            }
-        }
-    };
     
     // Parse CSV file and validate headers
     const parseCSV = (data) => {
@@ -119,16 +94,22 @@ const FileUpload = () => {
         .then(response => {
             if (response.ok) {
                 alert("File uploaded successfully.");
+                window.location.reload(); // Reload the page after successful upload
             } else {
                 alert("Failed to upload file.");
             }
         })
         .catch(error => {
+            setLoading(false); // End loading
             console.error("Error uploading file:", error);
+            setErrorMessage("Error uploading file.");
         });
     };
 
     const handleFileChange = (e) => {
+        // Alert the user about the required headers
+        alert(`The file should contain the following headers: ${requiredHeaders.join(", ")}`);
+    
         const file = e.target.files[0];
         if (file) {
             const fileType = file.type;
@@ -140,13 +121,27 @@ const FileUpload = () => {
     
             if (allowedTypes.includes(fileType)) {
                 setSelectedFileName(file.name);
+                setLoading(true); // Start loading
                 const reader = new FileReader();
                 reader.onload = (event) => {
-                    const data = new Uint8Array(event.target.result);
-                    const binaryString = String.fromCharCode.apply(null, data);
-                    fileType === "text/csv" ? parseCSV(binaryString) : parseExcel(binaryString);
+                    const data = event.target.result;
+                    // Parse the file based on its type
+                    if (fileType === "text/csv") {
+                        parseCSV(data);
+                    } else {
+                        parseExcel(data);
+                    }
                 };
-                reader.readAsArrayBuffer(file);// Read the file
+                reader.onerror = () => {
+                    setErrorMessage("Error reading the file.");
+                    setLoading(false);
+                };
+                // Read the file based on its type
+                if (fileType === "text/csv") {
+                    reader.readAsText(file); // Read as text for CSV
+                } else {
+                    reader.readAsBinaryString(file); // Read as binary for Excel
+                }
             } else {
                 setSelectedFileName("");
                 alert("Please select a valid CSV or Excel file.");
@@ -160,22 +155,22 @@ const FileUpload = () => {
 
     return (
         <div className="file-upload-section">
-        <img 
-            src="/uploads/file.svg"
-            className="file-icon"
-            alt="file upload icon"
-            aria-label="Upload file"
-            onClick={handleIconClick}
-        />
-        {selectedFileName && <span>{selectedFileName}</span>}
-        <span className="file-upl">File Upload</span>
-        <input
-            type="file"
-            ref={fileInputRef}
-            style={{ display: "none" }}
-            accept=".csv, .xls, .xlsx"
-            onChange={handleFileChange}
-        />
+            <img 
+                src="/uploads/file.svg"
+                className="file-icon"
+                alt="file upload icon"
+                aria-label="Upload file"
+                onClick={handleIconClick}
+            />
+            {selectedFileName && <span>{selectedFileName}</span>}
+            <span className="file-upl">File Upload</span>
+            <input
+                type="file"
+                ref={fileInputRef}
+                style={{ display: "none" }}
+                accept=".csv, .xls, .xlsx"
+                onChange={handleFileChange}
+            />
         </div>
     );
 };
